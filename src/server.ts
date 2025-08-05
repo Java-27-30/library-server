@@ -1,5 +1,5 @@
 
-import express from 'express';
+import express, {Request, Response, NextFunction} from 'express';
 import {PORT} from "./config/libConfig.ts";
 import {libRouter} from "./routes/libRouter.ts";
 import {errorHandler} from "./errorHandler/errorHandler.ts";
@@ -10,7 +10,7 @@ export const launchServer = () => {
 
 //==================Middleware================
     app.use(express.json());
-
+    app.use((req: Request, res:Response, next:NextFunction) => next())
 //==================Router====================
     app.use('/api', libRouter);
     app.use((req, res) => {
