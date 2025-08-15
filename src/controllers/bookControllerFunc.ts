@@ -3,14 +3,15 @@ import {Response, Request} from "express";
 import {Book, BookDto} from "../model/Book.js";
 import {convertBookDtoToBook, getGenre, getStatus} from "../utils/tools.js";
 import {HttpError} from "../errorHandler/HttpError.js";
-import {libServiceMongo as service} from "../services/libServiceImplMongo.js";
+//import {libServiceMongo as service} from "../services/libServiceImplMongo.js";
+import {libServiceSql as service} from "../services/libServiseImplSQL.js";
 
 export const getBooksByGengreAndStatus = async (req: Request, res: Response) => {
     const {genre, status} = req.query;
     const genre_upd = getGenre(genre as string);
     const status_upd = getStatus(status as string);
-    const result = await service.getBooksByGenreAndStatus(genre_upd, status_upd);
-    res.json(result);
+    //const result = await service.getBooksByGenreAndStatus(genre_upd, status_upd);
+   // res.json(result);
 }
 
 export const getBooksByGenre = async (req: Request, res: Response) => {
@@ -39,6 +40,7 @@ export const addBook = async (req: Request, res: Response) => {
     const dto = req.body as BookDto;
     const book: Book = convertBookDtoToBook(dto);
     const result = await service.addBook(book);
+    console.log(result)
     if (result)
         res.status(201).send("Book successfully added")
     else throw new HttpError(409, 'Book not added. Id conflict')

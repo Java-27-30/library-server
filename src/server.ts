@@ -5,10 +5,13 @@ import {libRouter} from "./routes/libRouter.ts";
 import {errorHandler} from "./errorHandler/errorHandler.ts";
 import morgan from 'morgan';
 import * as fs from "node:fs";
+import dotenv from 'dotenv';
 
 export const launchServer = () => {
+    //===========load environments==============
+    dotenv.config();
     const app = express();
-    app.listen(PORT, () => console.log(`Server runs at http://localhost:${PORT}`));
+    app.listen(process.env.PORT, () => console.log(`Server runs at http://localhost:${process.env.PORT}`));
     const logStream = fs.createWriteStream('access.log', {flags:'a'});
 //==================Middleware================
     app.use(express.json());
