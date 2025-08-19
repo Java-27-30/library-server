@@ -6,6 +6,7 @@ import {errorHandler} from "./errorHandler/errorHandler.ts";
 import morgan from 'morgan';
 import * as fs from "node:fs";
 import dotenv from 'dotenv';
+import {accountRouter} from "./routes/accountRouter.js";
 
 export const launchServer = () => {
     //===========load environments==============
