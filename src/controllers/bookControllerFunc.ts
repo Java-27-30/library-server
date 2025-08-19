@@ -6,6 +6,13 @@ import {HttpError} from "../errorHandler/HttpError.js";
 //import {libServiceMongo as service} from "../services/libServiceImplMongo.js";
 import {libServiceSql as service} from "../services/libServiseImplSQL.js";
 
+export const getBookById = async (req: Request, res: Response) => {
+    const {id} = req.query;
+    const result = await service.getBookById(id as string);
+    res.json(result);
+}
+
+
 export const getBooksByGengreAndStatus = async (req: Request, res: Response) => {
     const {genre, status} = req.query;
     const genre_upd = getGenre(genre as string);

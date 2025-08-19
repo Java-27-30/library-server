@@ -25,8 +25,8 @@ export enum BookGenres {
 }
 
 export enum BookStatus {
-    "ON_STOCK" = "on stock",
-    "ON_HAND" = "on hand",
+    "ON_STOCK" = "on_stock",
+    "ON_HAND" = "on_hand",
     "REMOVED" = "removed"
 }
 

@@ -46,7 +46,7 @@ export class LibServiceImplMongo implements LibService{
     }
 
     removeBook(id: string): Promise<Book> {
-        throw ""
+        throw "method not realised yet!"
     }
 
     async returnBook(id: string): Promise<void> {
@@ -65,6 +65,13 @@ export class LibServiceImplMongo implements LibService{
     async getBooksByGenreAndStatus(genre: BookGenres, status: BookStatus):Promise<Book[]> {
         const result = await BookMongooseModel.find({genre, status}).exec() as Book[]
         return Promise.resolve(result)
+    }
+
+    async getBookById(id: string): Promise<Book> {
+        const book = await BookMongooseModel.findById(id).exec();
+        if (!book)
+            throw new HttpError(404, `Book with id: ${id} not found`);
+        return book as Book;
     }
 }
 

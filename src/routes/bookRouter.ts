@@ -21,6 +21,7 @@ export const bookRouter = express.Router();
 // bookRouter.post('/', controller.addBook.bind(controller));
 
  bookRouter.get('/', controller.getAllBooks);
+ bookRouter.get('/book_id', controller.getBookById);
  bookRouter.post('/', bodyValidation(BookDtoSchema), controller.addBook);
 bookRouter.delete('/',controller.removeBook);
 bookRouter.patch('/pickup',controller.pickUpBook);
