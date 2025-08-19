@@ -19,6 +19,7 @@ export const launchServer = () => {
     app.use(morgan('combined', {stream:logStream}))
    // app.use((req: Request, res:Response, next:NextFunction) => next())
 //==================Router====================
+    app.use('/accounts', accountRouter)
     app.use('/api', libRouter);
     app.use((req, res) => {
         res.status(404).send("Page not found")
