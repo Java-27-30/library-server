@@ -10,6 +10,3 @@ mongoose.connect(MONGO_URI)
     .catch(() => {
         console.log("Something went wrong")
     })
-
-
-launchServer();

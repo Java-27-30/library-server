@@ -17,10 +17,8 @@ export class AccountServiceImplMongo implements AccountService{
     async changePassword(id: number, oldPassword: string, newPassword:string): Promise<void> {
         console.log(id, oldPassword, newPassword)
         const account = await ReaderModel.findById(id);
-        console.log(account)
         if (!account) throw new HttpError(404, "Account not found");
         const checkPass = bcrypt.compareSync(oldPassword, account.passHash);
-        console.log(checkPass)
         if(!checkPass) throw new HttpError(403, "");
         else{
             const newHash = bcrypt.hashSync(newPassword, 10);
