@@ -7,6 +7,6 @@ import {ChangePassDtoSchema, ReaderDtoSchema} from "../validation/joiSchemas.js"
 export const  accountRouter = express.Router();
 
 accountRouter.post('/',bodyValidation(ReaderDtoSchema),controller.addAccount);
-accountRouter.get('/reader', controller.getAccount);
+accountRouter.get('/reader_id', controller.getAccountById);
 accountRouter.patch('/password', bodyValidation(ChangePassDtoSchema), controller.changePassword);
 accountRouter.delete('/', controller.removeAccount)
