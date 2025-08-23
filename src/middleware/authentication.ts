@@ -21,11 +21,12 @@ async function getBasicAuth(authHeader: string, service: AccountService, req: Au
             console.log("AUTHENTICATED")
         } else {
             console.log("NOT AUTHENTICATED")
-            res.status(401).send("")
+       //     res.status(401).send("")
         }
     } catch (e) {
-        console.log(e);
-        res.status(401).send("")
+        console.log("NOT AUTHENTICATED because Internal Http Errors")
+        //console.log(e);
+    //    res.status(401).send("")
     }
 }
 
@@ -43,6 +44,6 @@ export const skipRoutes = (skipRoutes: string[]) =>
     (req: AuthRequest, res: Response, next: NextFunction)=> {
     const route = req.method + req.path //   POST/accounts
         if(!skipRoutes.includes(route) && !req.userId)
-            throw new HttpError(401, "")
+            throw new HttpError(401, "skipRoutes sent throw this error")
     next();
     }
