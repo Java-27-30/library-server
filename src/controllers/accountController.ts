@@ -5,6 +5,15 @@ import {accountServiceMongo} from "../services/AccountServiceImplMongo.js";
 import {HttpError} from "../errorHandler/HttpError.js";
 import bcrypt from "bcryptjs";
 
+export const updateAccount = async (req: Request, res: Response) => {
+    const body = req.body;
+    const _id = checkReaderId(req.query.id as string)
+    const dto:ReaderDto = {...body, id: _id, password:""};
+    const updReader = convertReaderDtoToReader(dto);
+    const updAccount = await accountServiceMongo.updateAccount(updReader);
+    res.json(updAccount);
+}
+
 
 export const removeAccount = async (req: Request, res: Response) => {
     const {id} = req.query;

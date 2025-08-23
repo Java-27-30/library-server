@@ -39,6 +39,13 @@ export class AccountServiceImplMongo implements AccountService{
         return result as unknown as Reader;
     }
 
+    async updateAccount(updReader: Reader): Promise<Reader> {
+        const result =
+            await ReaderModel.findByIdAndUpdate(updReader._id, {userName: updReader.userName, email: updReader.email, birthdate: updReader.birthdate},{new:true})
+        if(!result) throw new HttpError(404, "Account not found");
+        return result as unknown as Reader;
+    }
+
 }
 
 export const accountServiceMongo = new AccountServiceImplMongo();

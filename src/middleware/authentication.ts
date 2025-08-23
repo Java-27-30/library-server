@@ -17,7 +17,7 @@ async function getBasicAuth(authHeader: string, service: AccountService, req: Au
         if (bcrypt.compareSync(password, account.passHash)) {
             req.userId = account._id;
             req.userName = account.userName;
-            req.roles = [Roles.USER];
+            req.roles = account.roles;
             console.log("AUTHENTICATED")
         } else {
             console.log("NOT AUTHENTICATED")

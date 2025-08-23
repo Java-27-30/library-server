@@ -1,7 +1,7 @@
 import express, {Response} from "express";
 import * as controller from '../controllers/accountController.js'
 import {bodyValidation} from "../validation/bodyValidation.js";
-import {ChangePassDtoSchema, ReaderDtoSchema} from "../validation/joiSchemas.js";
+import {ChangePassDtoSchema, ReaderDtoSchema, UpdateAccountSchema} from "../validation/joiSchemas.js";
 import {AuthRequest, Roles} from "../utils/libTypes.js";
 import {HttpError} from "../errorHandler/HttpError.js";
 
@@ -16,4 +16,5 @@ accountRouter.get('/reader_id', async (req: AuthRequest, res: Response) => {
     throw new HttpError(403, "")
 });
 accountRouter.patch('/password', bodyValidation(ChangePassDtoSchema), controller.changePassword);
-accountRouter.delete('/', controller.removeAccount)
+accountRouter.delete('/', controller.removeAccount);
+accountRouter.patch('/', bodyValidation(UpdateAccountSchema), controller.updateAccount);
