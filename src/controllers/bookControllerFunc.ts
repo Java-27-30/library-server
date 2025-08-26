@@ -3,8 +3,8 @@ import {Response, Request} from "express";
 import {Book, BookDto} from "../model/Book.js";
 import {convertBookDtoToBook, getGenre, getStatus} from "../utils/tools.js";
 import {HttpError} from "../errorHandler/HttpError.js";
-//import {libServiceMongo as service} from "../services/libServiceImplMongo.js";
-import {libServiceSql as service} from "../services/libServiseImplSQL.js";
+import {libServiceMongo as service} from "../services/libServiceImplMongo.js";
+//import {libServiceSql as service} from "../services/libServiseImplSQL.js";
 
 export const getBookById = async (req: Request, res: Response) => {
     const {id} = req.query;

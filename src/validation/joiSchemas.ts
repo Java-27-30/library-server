@@ -1,4 +1,5 @@
-import Joi from 'joi'
+import Joi, {string} from 'joi'
+import {Roles} from "../utils/libTypes.js";
 
 export const BookDtoSchema = Joi.object({
     title:Joi.string().min(2).required(),
@@ -25,3 +26,7 @@ export const UpdateAccountSchema = Joi.object({
     email: Joi.string().email().required(),
     birthdate: Joi.string().isoDate().required()
 })
+
+ export const ChangeRolesSchema = Joi.array<Roles[]>()
+
+export type ArraySchema = typeof ChangeRolesSchema;

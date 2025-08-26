@@ -4,6 +4,15 @@ import {checkReaderId, convertReaderDtoToReader} from "../utils/tools.js";
 import {accountServiceMongo} from "../services/AccountServiceImplMongo.js";
 import {HttpError} from "../errorHandler/HttpError.js";
 import bcrypt from "bcryptjs";
+import {Roles} from "../utils/libTypes.js";
+
+export const changeRoles = async (req: Request, res: Response) => {
+    const id = checkReaderId(req.query.id as string);
+    const newRoles = req.body as Roles[];
+    const readerWithNewRoles = await accountServiceMongo.changeRoles(id, newRoles);
+    res.json(readerWithNewRoles)
+}
+
 
 export const updateAccount = async (req: Request, res: Response) => {
     const body = req.body;

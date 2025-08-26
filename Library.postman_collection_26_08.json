@@ -1,0 +1,371 @@
+{
+	"info": {
+		"_postman_id": "492638af-06e7-4ad0-a073-02cd47581e36",
+		"name": "Library",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "18222058",
+		"_collection_link": "https://warped-trinity-518501.postman.co/workspace/Java-27-30~7e240191-0474-4dff-9cb1-998a344b302c/collection/18222058-492638af-06e7-4ad0-a073-02cd47581e36?action=share&source=collection_link&creator=18222058"
+	},
+	"item": [
+		{
+			"name": "Accounting",
+			"item": [
+				{
+					"name": "AddReader",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\":123456789,\r\n    \"userName\":\"Tom\",\r\n    \"email\":\"tom@gmail.com\",\r\n    \"password\":\"123456789\",\r\n    \"birthdate\":\"1980/10/10\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3500/api/accounts",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3500",
+							"path": [
+								"api",
+								"accounts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAccountById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3500/accounts?id=123456789",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3500",
+							"path": [
+								"accounts"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "123456789"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteAccount",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3500/accounts?id=987654321",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3500",
+							"path": [
+								"accounts"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "987654321"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ChangePassword",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\":\"123456789\",\r\n    \"password\":\"111222333\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3500/accounts/password",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3500",
+							"path": [
+								"accounts",
+								"password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateAccount(name, email, birthdate)",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "ChangeRoles",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "addBook",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\": \"1984\",\r\n    \"author\":\"Orwell\",\r\n    \"genre\":\"dystopia\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3500/api/books",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3500",
+					"path": [
+						"api",
+						"books"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getAllBooks",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "RemoveBook",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\": \"1984\",\r\n    \"author\":\"Orwell\",\r\n    \"genre\":\"dystopia\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3500/api/books?id=85a9e135-4cf4-4bc5-ae91-84ef3b54c98c",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3500",
+					"path": [
+						"api",
+						"books"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "85a9e135-4cf4-4bc5-ae91-84ef3b54c98c"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PickupBook",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\": \"1984\",\r\n    \"author\":\"Orwell\",\r\n    \"genre\":\"dystopia\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3500/api/books/pickup?id=",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3500",
+					"path": [
+						"api",
+						"books",
+						"pickup"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetBookByGenre",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\": \"1984\",\r\n    \"author\":\"Orwell\",\r\n    \"genre\":\"dystopia\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3500/api/books/genre?genre=classic",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3500",
+					"path": [
+						"api",
+						"books",
+						"genre"
+					],
+					"query": [
+						{
+							"key": "genre",
+							"value": "classic"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getBooksByGenreAndStatus",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:3500/api/books/gen_st?genre=fantasy&status=on_hand",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3500",
+					"path": [
+						"api",
+						"books",
+						"gen_st"
+					],
+					"query": [
+						{
+							"key": "genre",
+							"value": "fantasy"
+						},
+						{
+							"key": "status",
+							"value": "on_hand"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetBookById",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\": \"1984\",\r\n    \"author\":\"Orwell\",\r\n    \"genre\":\"dystopia\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3500/api/books/book_id?id=306b6997-28d9-44c0-ae14-3d92ca4667df",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3500",
+					"path": [
+						"api",
+						"books",
+						"book_id"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "306b6997-28d9-44c0-ae14-3d92ca4667df"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ReturnBook",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3500/api/books/return?id=c7120179-1c2a-40bd-bdd5-837c414b1155",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3500",
+					"path": [
+						"api",
+						"books",
+						"return"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "c7120179-1c2a-40bd-bdd5-837c414b1155"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
