@@ -39,7 +39,6 @@ async function getBasicAuth(authHeader: string, service: AccountService, req: Au
 export const authenticate = (service: AccountService) => {
         return async (req: Request, res: Response, next: NextFunction) => {
             const authHeader = req.header('Authorization');
-            console.log(authHeader);
             if (authHeader)
                 await getBasicAuth(authHeader, service, req, res)
             next();

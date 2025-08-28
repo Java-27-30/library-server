@@ -28,4 +28,4 @@ bookRouter.patch('/pickup',controller.pickUpBook);
 bookRouter.patch('/return',controller.returnBook);
 bookRouter.get('/genre', controller.getBooksByGenre);
 bookRouter.get('/gen_st', controller.getBooksByGengreAndStatus);
-
+bookRouter.get('/books_reader', controller.getBooksByReaderId);

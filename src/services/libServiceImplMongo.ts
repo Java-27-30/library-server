@@ -2,6 +2,7 @@ import {LibService} from "./libService.js";
 import {Book, BookGenres, BookStatus} from "../model/Book.js";
 import {BookMongooseModel} from "../model/BookMongooseModel.js";
 import {HttpError} from "../errorHandler/HttpError.js";
+import {Reader} from "../model/Reader.js";
 
 export class LibServiceImplMongo implements LibService{
 
@@ -24,8 +25,8 @@ export class LibServiceImplMongo implements LibService{
     }
 
     async getAllBooks(): Promise<Book[]> {
-        const result = await BookMongooseModel.find().exec() as Book[]
-        return Promise.resolve(result) ;
+        const result = await BookMongooseModel.find({}).exec() as Book[]
+        return result ;
     }
 
     async getBooksByGenre(genre: BookGenres): Promise<Book[]> {
@@ -33,20 +34,27 @@ export class LibServiceImplMongo implements LibService{
         return Promise.resolve(result);
     }
 
-    async pickUpBook(id: string, reader: string): Promise<void> {
+    async pickUpBook(id: string, reader: Reader): Promise<void> {
         const book = await BookMongooseModel.findOne({_id:id}).exec();
         if(!book)
             throw new HttpError(404, `Book with id: ${id} not found`);
         if(book.status !== BookStatus.ON_STOCK)
             throw new HttpError(409, "Book just on hand");
         book.status = BookStatus.ON_HAND;
-        book.pickList.push({reader, pick_date: new Date().toDateString(), return_date: null});
+        book.pickList.push({readerId: reader._id, readerName: reader.userName, pick_date: new Date().toDateString(), return_date: null});
 
         book.save();
     }
 
-    removeBook(id: string): Promise<Book> {
-        throw "method not realised yet!"
+    async removeBook(id: string): Promise<Book> {
+        const book = await BookMongooseModel.findById(id).exec();
+        if (!book)
+            throw new HttpError(404, `Book with id: ${id} not found`);
+        if (book.status !== BookStatus.ON_STOCK)
+            throw new HttpError(409, "Book out of stock");
+        book.status = BookStatus.REMOVED;
+       const removed = await BookMongooseModel.findByIdAndDelete(id).exec();
+        return removed as Book;
     }
 
     async returnBook(id: string): Promise<void> {
@@ -72,6 +80,11 @@ export class LibServiceImplMongo implements LibService{
         if (!book)
             throw new HttpError(404, `Book with id: ${id} not found`);
         return book as Book;
+    }
+
+    async getBooksByReaderId(readerId: number): Promise<Book[]> {
+        const books = await BookMongooseModel.find({pickList:{$elemMatch:{readerId}}}).exec();
+        return books as Book[];
     }
 }
 

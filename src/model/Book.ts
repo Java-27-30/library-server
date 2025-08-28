@@ -31,7 +31,8 @@ export enum BookStatus {
 }
 
 export type PickRecord = {
-    reader: string,
+    readerId:number
+    readerName: string,
     pick_date: string,
     return_date:string | null
 }

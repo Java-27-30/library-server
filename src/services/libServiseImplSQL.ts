@@ -2,6 +2,7 @@ import {LibService} from "./libService.js";
 import {Book, BookGenres, BookStatus} from "../model/Book.js";
 import {pool} from "../config/libConfig.js";
 import {HttpError} from "../errorHandler/HttpError.js";
+import {Reader} from "../model/Reader.js";
 
 export class LibServiceImplSQL implements  LibService{
 
@@ -24,17 +25,17 @@ export class LibServiceImplSQL implements  LibService{
         return result as Book[];
     }
 
-    async pickUpBook(id: string, reader: string): Promise<void> {
+    async pickUpBook(id: string, reader: Reader): Promise<void> {
         const book = await this.getBookById(id);
         if (book.status !== BookStatus.ON_STOCK)
             throw new HttpError(400, "Wrong book status")
 
-        let queriedReader = await this.getReaderByName(reader);
+        let queriedReader = await this.getReaderByName(reader.userName);
         if (!book)
             throw new HttpError(400,"Can't return book because this book or reader not exists");
         if (!queriedReader) {
             await pool.query('INSERT INTO readers VALUES (null, ?)', [reader]);
-            queriedReader = await this.getReaderByName(reader);
+            queriedReader = await this.getReaderByName(reader.userName);
         }
 
         await pool.query('INSERT INTO books_readers VALUES(?, ?, ?, ?)',
@@ -89,9 +90,13 @@ export class LibServiceImplSQL implements  LibService{
     }
 
     getPickRecordsByBookId = async (id: string) => {
-        const query = 'SELECT pick_date, return_date, name as reader FROM (books_readers as b_r JOIN readers as r ON b_r.reader_id = r.reader_id) WHERE b_r.book_id = ?'
+        const query = 'SELECT pick_date, return_date, name as readerName FROM (books_readers as b_r JOIN readers as r ON b_r.reader_id = r.reader_id) WHERE b_r.book_id = ?'
         const [result] = await pool.query(query, [id])
-        return result as {pick_date: string, return_date:string, reader: string}[];
+        return result as {pick_date: string, return_date:string, readerName: string, readerId: 101010101}[];
+    }
+
+    getBooksByReaderId(readerId: number): Promise<Book[]> {
+        throw "method not realized yet"
     }
 
 }

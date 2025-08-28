@@ -3,7 +3,8 @@ import { v4 as uuidv4 } from 'uuid';
 import {BookGenres, BookStatus} from "./Book.js";
 
 const PickListSchema = new mongoose.Schema({
-    reader: {type:String, required:true},
+    readerId:{type: Number, length:9, required:true},
+    readerName: {type:String, required:true},
     pick_date: {type:String, required: true},
     return_date:{type:String, default:null}
 }, {

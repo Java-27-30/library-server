@@ -11,13 +11,9 @@ export const authorize = (pathRoute:Record<string, Roles[]>)=>
     (req:AuthRequest, res:Response, next:NextFunction)=> {
     const route = req.method + req.path
         const roles = req.roles;
-        console.log("PreAuthorize: " + roles)
-        console.log("route: " + route)
     if(!roles || roles.some(r => pathRoute[route].includes(r))){
-        console.log("authorize")
         next();
     }
-
     else throw new HttpError(403, "")
     }
 

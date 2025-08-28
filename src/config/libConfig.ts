@@ -19,9 +19,10 @@ export const SKIP_ROUTES = [
     "POST/accounts", "GET/api/books"
 ]
 /*
-    USER: getAccById(?), changePass(?), updateAcc(?)
-    ADMIN: getAccById, updateAcc
+    USER: getAccById(?), changePass(?), updateAcc(?) || HW || getBookById getBookByJenre
+    ADMIN: getAccById, updateAcc, addBook, removeBook, getBookById, getBooksByReader
     SUPERVISOR: deleteAcc, changeRoles
+    LIBRARIAN: pickUpbook, returnBook, getters
  */
 export const PATH_ROUTES = {
  "GET/accounts/reader_id" : [Roles.USER, Roles.ADMIN],
@@ -29,6 +30,15 @@ export const PATH_ROUTES = {
     "DELETE/accounts" : [Roles.SUPERVISOR],
     "PATCH/accounts" : [Roles.USER,Roles.ADMIN],
     "PUT/accounts/roles" : [Roles.SUPERVISOR],
+    //===========================HW==================
+    "GET/api/books/book_id" : [Roles.USER, Roles.ADMIN],
+    "GET/api/books/genre" : [Roles.USER, Roles.LIBRARIAN],
+    "GET/api/books/gen_st" : [Roles.LIBRARIAN],
+    "POST/api/books":[Roles.ADMIN],
+    "DELETE/api/books":[Roles.ADMIN],
+    "PATCH/api/books/pickup":[Roles.LIBRARIAN],
+    "PATCH/api/books/return":[Roles.LIBRARIAN],
+    "GET/api/books/books_reader":[Roles.ADMIN, Roles.LIBRARIAN]
 }
 
 export const CHECK_ID_ROUTES = [

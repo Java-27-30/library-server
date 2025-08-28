@@ -4,7 +4,17 @@ import {Book, BookDto} from "../model/Book.js";
 import {convertBookDtoToBook, getGenre, getStatus} from "../utils/tools.js";
 import {HttpError} from "../errorHandler/HttpError.js";
 import {libServiceMongo as service} from "../services/libServiceImplMongo.js";
+import {accountServiceMongo as acc_service} from "../services/AccountServiceImplMongo.js";
+import {BookMongooseModel} from "../model/BookMongooseModel.js";
 //import {libServiceSql as service} from "../services/libServiseImplSQL.js";
+
+
+export const getBooksByReaderId = async (req: Request, res: Response) => {
+    const {readerId} = req.query;
+    await acc_service.getAccountById(parseInt(readerId as string));
+    const result = await service.getBooksByReaderId(parseInt(readerId as string));
+    res.json(result);
+}
 
 export const getBookById = async (req: Request, res: Response) => {
     const {id} = req.query;
@@ -17,8 +27,8 @@ export const getBooksByGengreAndStatus = async (req: Request, res: Response) => 
     const {genre, status} = req.query;
     const genre_upd = getGenre(genre as string);
     const status_upd = getStatus(status as string);
-    //const result = await service.getBooksByGenreAndStatus(genre_upd, status_upd);
-   // res.json(result);
+    const result = await service.getBooksByGenreAndStatus(genre_upd, status_upd);
+   res.json(result);
 }
 
 export const getBooksByGenre = async (req: Request, res: Response) => {
@@ -37,9 +47,10 @@ export const returnBook = async (req: Request, res: Response) => {
 
 
 export const pickUpBook = async (req: Request, res: Response) => {
-    const {id, reader} = req.query;
-    await service.pickUpBook(id as string, reader as string);
-    res.send(`Book picked by ${reader}`)
+    const {id, readerId} = req.query;
+    const reader = await acc_service.getAccountById(parseInt(readerId as string));
+    await service.pickUpBook(id as string, reader);
+    res.send(`Book picked by ${reader.userName}`)
 }
 
 
