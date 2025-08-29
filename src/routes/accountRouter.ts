@@ -3,12 +3,11 @@ import * as controller from '../controllers/accountController.js'
 import {bodyValidation} from "../validation/bodyValidation.js";
 import {
     ChangePassDtoSchema,
-    ChangeRolesSchema,
+    ChangeRolesSchema, LoginSchema,
     ReaderDtoSchema,
     UpdateAccountSchema
 } from "../validation/joiSchemas.js";
-import {AuthRequest, Roles} from "../utils/libTypes.js";
-import {HttpError} from "../errorHandler/HttpError.js";
+
 
 
 export const  accountRouter = express.Router();
@@ -18,4 +17,5 @@ accountRouter.get('/reader_id', controller.getAccountById);
 accountRouter.patch('/password', bodyValidation(ChangePassDtoSchema), controller.changePassword);
 accountRouter.delete('/', controller.removeAccount);
 accountRouter.patch('/', bodyValidation(UpdateAccountSchema), controller.updateAccount);
-accountRouter.put('/roles',bodyValidation(ChangeRolesSchema),controller.changeRoles)
+accountRouter.put('/roles',bodyValidation(ChangeRolesSchema),controller.changeRoles);
+accountRouter.post('/login', bodyValidation(LoginSchema), controller.login);
