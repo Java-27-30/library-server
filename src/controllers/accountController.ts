@@ -7,7 +7,7 @@ import bcrypt from "bcryptjs";
 import {LoginPassType, Roles} from "../utils/libTypes.js";
 
 export const login = async (req: Request, res: Response) => {
-    const result = accountServiceMongo.login(req.body as LoginPassType);
+    const result = await accountServiceMongo.login({userId: checkReaderId(req.body.id), password: req.body.password});
     res.json(result);
 };
 
