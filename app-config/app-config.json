@@ -25,6 +25,6 @@
     "PATCH/accounts/password",
     "PATCH/accounts"
   ],
-  "timeWindowMs": 20000,
+  "timeWindowMs": 60000,
   "requestLimit": 3
 }
