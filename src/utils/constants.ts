@@ -1,0 +1,1 @@
+export const requestLimitControlList: Map<number, number[]> = new Map<number, number[]>();

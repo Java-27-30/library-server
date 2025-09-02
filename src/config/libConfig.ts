@@ -12,11 +12,10 @@ export interface AppConfig {
     jwt:{
         secret:string,
         exp:string|number
-    }
-
+    },
+    timeWindowMs:number,
+    requestLimit:number
 }
-//export const PORT=3500;
-//export const MONGO_URI = 'mongodb+srv://konspirin:lEUH2CDZKqCvxdCx@cluster0.chmbb0u.mongodb.net/library?retryWrites=true&w=majority&appName=Cluster0'
 dotenv.config();
 
 export const configuration:AppConfig = {

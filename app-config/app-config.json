@@ -6,13 +6,13 @@
     "GET/api/books"
   ],
   "pathRoles": {
-    "GET/accounts/reader_id" : ["user", "admin"],
-    "PATCH/accounts/password" : ["user"],
+    "GET/accounts/reader_id" : ["user", "admin","premium"],
+    "PATCH/accounts/password" : ["user", "premium"],
     "DELETE/accounts" : ["super"],
-    "PATCH/accounts" : ["user","admin"],
+    "PATCH/accounts" : ["user","admin", "premium"],
     "PUT/accounts/roles" : ["super"],
-    "GET/api/books/book_id" : ["user", "admin", "librarian"],
-    "GET/api/books/genre" : ["user", "librarian"],
+    "GET/api/books/book_id" : ["user", "admin", "librarian", "premium"],
+    "GET/api/books/genre" : ["user", "librarian", "premium"],
     "GET/api/books/gen_st" : ["librarian"],
     "POST/api/books":["admin"],
     "DELETE/api/books":["admin"],
@@ -24,5 +24,7 @@
     "GET/accounts/reader_id",
     "PATCH/accounts/password",
     "PATCH/accounts"
-  ]
+  ],
+  "timeWindowMs": 20000,
+  "requestLimit": 3
 }

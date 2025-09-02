@@ -6,6 +6,7 @@ GET/accounts/reader_id => ROLES.USER, ROLES.ADMIN
 import {AuthRequest, Roles} from "../utils/libTypes.js";
 import {NextFunction} from "express";
 import {HttpError} from "../errorHandler/HttpError.js";
+import {configuration} from "../config/libConfig.js";
 
 export const authorize = (pathRoute:Record<string, Roles[]>)=>
     (req:AuthRequest, res:Response, next:NextFunction)=> {
@@ -27,5 +28,31 @@ export const authorize = (pathRoute:Record<string, Roles[]>)=>
                 && req.userId == req.query.id))
                 next();
             else throw new HttpError(403, "You can modify only your own account")
+        }
+    }
+
+    export const checkRequestLimit = (reqList: Map<number, number[]>) => {
+        return (req:AuthRequest, res:Response, next:NextFunction)=> {
+            if(req.roles?.length === 1 && req.roles.includes(Roles.USER)){
+                const currTime = new Date().getTime();
+                const id = +req.userId!;
+                const requests = reqList.get(id);
+                console.log(requests)
+                if(!requests)
+                    reqList.set(id, [currTime]);
+                else {
+                    if(currTime - requests[0] > configuration.timeWindowMs){
+                        reqList.set(id, [currTime]);
+                        console.log(reqList.get(id));
+                    }
+                    else if(requests.length< configuration.requestLimit){
+                        requests.push(currTime);
+                        console.log(reqList.get(id));
+                    }
+                    else throw new HttpError(403, "Too many requests!")
+                }
+            }
+
+            next();
         }
     }
